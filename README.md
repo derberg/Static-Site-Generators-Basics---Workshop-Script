@@ -18,16 +18,58 @@ Install Docker and enjoy the world of virtual containers:
 ## Quick start with Docker
 
 Below you can see how to quickly run a container with node.js and git technology:
-* Mac: `docker run -it --rm --name myFirstContainer -v ~/myFirstContainer:/mySample -p 8080:8080 node:7.10 /bin/bash`
-* Windows: `docker run -it --rm --name myFirstContainer -v //C/Users/YourUser/myFirstContainer:/mySample -p 8080:8080 node:7.10 /bin/bash`
+* Mac: `docker run -it --name myFirstContainer -v ~/myFirstContainer:/mySample -p 9778:9778 node:7.10 /bin/bash`
+* Windows: `docker run -it --name myFirstContainer -v //C/Users/YourUser/myFirstContainer:/mySample -p 9778:9778 node:7.10 /bin/bash`
 
 You are not interested with JavaScript based static site generator like DocPad? you want [Jekyll](https://jekyllrb.com/) based on Ruby or [JBake](jbake.org) on Java (Java? rly?) then just go to [Docker Hub](https://hub.docker.com) and find a different base image for you, like `maven:alpine` for Java 8 with Maven on it.
+
+```
+Docker flags explanation:
+- it: Interactive mode, makes it possible to access container through the terminal
+- name: Setting container name
+- v: Mounting of local dir into a container.
+- p: Port that you can access your container through the network
+- node part is the name of the docker image and its tag
+- `/bin/bash` is required by interactive mode
+```
 
 ## Pick the Static Site Generator
 
 Pick any, play with as many as you want. It all depends on what you need, what are your requirements.
 To narrow the list of generators from over 400 to less than 10, use the following project: https://github.com/derberg/docs-with-static-site-generators
 
+### DocPad samples
+
+The most basic sample, a blog web site: `git clone https://github.com/derberg/blog-docpad-learn`
+The documentation portal skeleton: `git clone https://github.com/YaaS/docpad-skeleton-apidocs`
+
+After cloning the sample to your container, install DocPad globally by calling `npm install docpad -g`
+
+### Reuse Docker container
+
+Once you `exit` container this is how you start it up in interactive mode:
+```
+docker start myFirstContainer
+docker exec -it myFirstContainer /bin/bash
+```
+
+### Use some features
+
+* Play with [partials](https://github.com/docpad/docpad-plugin-partials) to do content reuse
+* Play with [related](https://github.com/docpad/docpad-plugin-related) to do some content mapping or just learn how collections work and how to reuse it with templating
+* Understand what metadata is for
+* Information typing through metadata
+* Specialization of anything
+
+### Use GitHub Pages
+
+Configure git in container:
+```
+git config --global user.email "derberg@wp.pl"
+git config --global user.name "Lukasz Gornicki"
+```
+
+Then play with https://github.com/docpad/docpad-plugin-ghpages.
 
 ## Summary
 
